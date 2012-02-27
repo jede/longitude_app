@@ -1,0 +1,12 @@
+/* line 1, ../../app/assets/stylesheets/responsive.scss */
+section.content {
+  margin: 0 auto;
+  width: 960px;
+}
+
+/* line 7, ../../app/assets/stylesheets/responsive.scss */
+section.books article {
+  float: left;
+  width: columns(3);
+  margin: 0 gutter();
+}

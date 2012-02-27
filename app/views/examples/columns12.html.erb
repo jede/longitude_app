@@ -1,0 +1,12 @@
+<h1>Look at all these books!</h1>
+
+<section class="books">
+<% @books.each do |book| -%>
+  <article>
+  <h2><%= book.title %></h2>
+  <p>
+    <%= book.blurb %>
+  </p>
+  </article>
+<% end -%>
+</section>

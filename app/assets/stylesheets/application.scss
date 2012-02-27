@@ -1,0 +1,29 @@
+@import 'compass/reset';
+@import 'compass/utilities/general/clearfix';
+@import 'longitude';
+
+
+@include longitude(3 6 12) {
+  section.content {
+    @include clearfix;
+    margin: 0 auto;
+    width: base-width();
+
+    & > h1 {
+      margin: 0 gutter();
+    }
+  }
+
+  section.books {
+    article {
+      float: left;
+      content: column-width();
+      width: columns(3);
+      margin: 10px gutter();
+      height: 180px;
+    }
+  }
+}
+
+@import 'style';
+

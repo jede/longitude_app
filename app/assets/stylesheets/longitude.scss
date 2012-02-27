@@ -1,0 +1,52 @@
+
+$longitude-column-width: 60px !default;
+$longitude-gutter-width: 10px !default;
+
+
+
+$longitude-column-count: 0;
+@function column-count(){
+  @return $longitude-column-count;
+}
+
+@function base-width($columns: column-count()){
+  @return $columns * ($longitude-column-width + $longitude-gutter-width * 2);
+}
+
+@function column-width() {
+  @return (100% * $longitude-column-width / base-width())
+}
+
+@function gutter-width() {
+  @return (100% * $longitude-column-width / base-width())
+}
+
+@function gutter($n:1){
+  @return $n * gutter-width();
+}
+
+@function columns($n, $outer-gutters: false) {
+  $width: $n * column-width() + ($n - 1) * gutter(2);
+  @if $outer-gutters { 
+    $width: $width + gutter(2);
+  }
+  @return $width;
+}
+
+
+
+
+
+@mixin longitude($columns-list) {
+  $last-column-count: 0;
+  @each $columns in $columns-list {
+    $longitude-column-count: $columns;
+    $min-width: base-width($last-column-count);
+    $max-width: base-width();
+    @media (min-width: $min-width) and (max-width: $max-width) {
+      @content;
+    }
+    $last-column-count: $columns;
+  }
+}
+
