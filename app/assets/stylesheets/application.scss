@@ -3,22 +3,25 @@
 @import 'longitude';
 
 
-@include longitude(3 6 12) {
+@include longitude(3 6 9 12) {
   section.content {
     @include clearfix;
     margin: 0 auto;
-    width: base-width();
+    max-width: base-width();
 
     & > h1 {
-      margin: 0 gutter();
+      @include gutters;
     }
   }
 
   section.books {
     article {
       float: left;
-      content: column-width();
-      width: columns(3);
+      @if(column-count() == 6) {
+        width: columns(6);
+      } @else {
+        width: columns(3);
+      };
       margin: 10px gutter();
       height: 180px;
     }

@@ -1,9 +1,7 @@
-
 $longitude-column-width: 60px !default;
 $longitude-gutter-width: 10px !default;
 
-
-
+$longitude-current-max-width: 100%;
 $longitude-column-count: 0;
 @function column-count(){
   @return $longitude-column-count;
@@ -14,15 +12,20 @@ $longitude-column-count: 0;
 }
 
 @function column-width() {
-  @return (100% * $longitude-column-width / base-width())
+  @return ($longitude-current-max-width * $longitude-column-width / base-width())
 }
 
 @function gutter-width() {
-  @return (100% * $longitude-column-width / base-width())
+  @return ($longitude-current-max-width * $longitude-gutter-width / base-width())
 }
 
 @function gutter($n:1){
   @return $n * gutter-width();
+}
+
+@mixin gutters {
+  margin-left: gutter();
+  margin-right: gutter();
 }
 
 @function columns($n, $outer-gutters: false) {
@@ -34,19 +37,26 @@ $longitude-column-count: 0;
 }
 
 
-
-
-
 @mixin longitude($columns-list) {
   $last-column-count: 0;
   @each $columns in $columns-list {
     $longitude-column-count: $columns;
     $min-width: base-width($last-column-count);
     $max-width: base-width();
-    @media (min-width: $min-width) and (max-width: $max-width) {
+
+    $query: '(max-width: #{$max-width})';
+    @if $min-width > 0 {
+      $query: '(min-width: #{$min-width}) and #{$query}'
+    }
+    @media $query {
       @content;
     }
     $last-column-count: $columns;
+  }
+  $longitude-current-max-width: base-width();
+  $query: '(min-width: #{base-width($last-column-count)})';
+  @media $query {
+    @content;
   }
 }
 
