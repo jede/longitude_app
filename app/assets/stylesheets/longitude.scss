@@ -36,6 +36,9 @@ $longitude-column-count: 0;
   @return $width;
 }
 
+@function full-width($outer-gutters: true) {
+  @return columns(column-count(), $outer-gutters)
+}
 
 @mixin longitude($columns-list) {
   $last-column-count: 0;
@@ -46,7 +49,7 @@ $longitude-column-count: 0;
 
     $query: '(max-width: #{$max-width})';
     @if $min-width > 0 {
-      $query: '(min-width: #{$min-width}) and #{$query}'
+      $query: '(min-width: #{$min-width + 1px}) and #{$query}'
     }
     @media $query {
       @content;
@@ -54,7 +57,7 @@ $longitude-column-count: 0;
     $last-column-count: $columns;
   }
   $longitude-current-max-width: base-width();
-  $query: '(min-width: #{base-width($last-column-count)})';
+  $query: '(min-width: #{base-width($last-column-count) + 1px})';
   @media $query {
     @content;
   }

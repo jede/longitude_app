@@ -7,7 +7,7 @@
   section.content {
     @include clearfix;
     margin: 0 auto;
-    max-width: base-width();
+    max-width: full-width();
 
     & > h1 {
       @include gutters;
@@ -17,8 +17,8 @@
   section.books {
     article {
       float: left;
-      @if(column-count() == 6) {
-        width: columns(6);
+      @if(column-count() <= 6) {
+        width: full-width($outer-gutters: false);
       } @else {
         width: columns(3);
       };
