@@ -1,5 +1,6 @@
 $longitude-column-width: 60px !default;
 $longitude-gutter-width: 10px !default;
+//$longitude-force-widest-layout: false !default;
 
 $longitude-current-max-width: 100%;
 $longitude-column-count: 0;
@@ -30,7 +31,7 @@ $longitude-column-count: 0;
 
 @function columns($n, $outer-gutters: false) {
   $width: $n * column-width() + ($n - 1) * gutter(2);
-  @if $outer-gutters { 
+  @if $outer-gutters {
     $width: $width + gutter(2);
   }
   @return $width;
@@ -49,17 +50,15 @@ $longitude-column-count: 0;
 
     $query: '(max-width: #{$max-width})';
     @if $min-width > 0 {
-      $query: '(min-width: #{$min-width + 1px}) and #{$query}'
-    }
-    @media $query {
+      $query: '(min-width: #{$min-width + 1px}) and #{$query}';
+      @media $query { @content; }
+    } @else {
       @content;
     }
     $last-column-count: $columns;
   }
   $longitude-current-max-width: base-width();
   $query: '(min-width: #{base-width($last-column-count) + 1px})';
-  @media $query {
-    @content;
-  }
+  @media $query { @content; }
 }
 

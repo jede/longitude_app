@@ -1,3 +1,7 @@
+//= require_self
+//= require 'style'
+
+
 @import 'compass/reset';
 @import 'compass/utilities/general/clearfix';
 @import 'longitude';
@@ -8,6 +12,12 @@
     @include clearfix;
     margin: 0 auto;
     max-width: full-width();
+
+    @if(column-count() < 9) {
+      background-color: #EEE;
+    } @else {
+      background-image: url(<%= image_path 'pinstriped_suit.png' %>);
+    }
 
     & > h1 {
       @include gutters;
@@ -28,5 +38,4 @@
   }
 }
 
-@import 'style';
 
