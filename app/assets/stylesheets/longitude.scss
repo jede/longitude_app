@@ -1,6 +1,6 @@
 $longitude-column-width: 60px !default;
 $longitude-gutter-width: 10px !default;
-//$longitude-force-widest-layout: false !default;
+$longitude-force-widest-layout: false !default;
 
 $longitude-current-max-width: 100%;
 $longitude-column-count: 0;
@@ -44,21 +44,28 @@ $longitude-column-count: 0;
 @mixin longitude($columns-list) {
   $last-column-count: 0;
   @each $columns in $columns-list {
-    $longitude-column-count: $columns;
-    $min-width: base-width($last-column-count);
-    $max-width: base-width();
+    @if $longitude-force-widest-layout != true {
+      $longitude-column-count: $columns;
+      $min-width: base-width($last-column-count);
+      $max-width: base-width();
 
-    $query: '(max-width: #{$max-width})';
-    @if $min-width > 0 {
-      $query: '(min-width: #{$min-width + 1px}) and #{$query}';
-      @media $query { @content; }
-    } @else {
-      @content;
+      $query: '(max-width: #{$max-width})';
+      @if $min-width > 0 {
+        $query: '(min-width: #{$min-width + 1px}) and #{$query}';
+        @media $query { @content; }
+      } @else {
+        @content;
+      }
     }
     $last-column-count: $columns;
   }
+  $longitude-column-count: $last-column-count;
   $longitude-current-max-width: base-width();
-  $query: '(min-width: #{base-width($last-column-count) + 1px})';
-  @media $query { @content; }
+  @if $longitude-force-widest-layout {
+    @content;
+  } @else {
+    $query: '(min-width: #{base-width($last-column-count) + 1px})';
+    @media $query { @content; }
+  }
 }
 

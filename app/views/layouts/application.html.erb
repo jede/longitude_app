@@ -4,7 +4,16 @@
   <title>LongitudeApp</title>
 
   <%= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Inder|Leckerli+One" %>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <!--[if (gte IE 9)|!(IE)]><!-->
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+  <!--<![endif]-->
+
+  <!--[if (lte IE 8)]>
+    <%= stylesheet_link_tag    "application-ie", :media => "all" %>
+  <![endif]-->
+
+
+
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
