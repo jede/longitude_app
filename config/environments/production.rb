@@ -12,7 +12,7 @@ LongitudeApp::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -22,6 +22,8 @@ LongitudeApp::Application.configure do
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
+
+  config.assets.precompile += ['application-ie.css']
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
